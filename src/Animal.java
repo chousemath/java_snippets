@@ -4,6 +4,8 @@ public class Animal {
     int numberOfLegs;
     boolean tail;
 
+    public Animal() {}
+
     public Animal(String name, String gender, int numberOfLegs, boolean tail) {
         this.name = name;
         this.gender = gender;
@@ -22,5 +24,9 @@ public class Animal {
         System.out.print("Meow, I am " + name + ", I am " + gender + ", and ");
         String tailMessage = tail ? "oh wow I have a tail!" : "shit...no tail...";
         System.out.println(tailMessage);
+    }
+
+    public void speak() {
+        System.out.println("I am an animal!");
     }
 }
