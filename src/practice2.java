@@ -1,21 +1,21 @@
 public class practice2 {
-    public static void main(String[] args) {
-        System.out.println("I am a Java class...");
-        int myVal = 10_000;
-        System.out.println("Here is an integer: " + myVal);
-        byte myByte = 10; // -128 => 127, more efficient than an int
-        byte myNewByte = (byte) (myByte / 2);
-        System.out.println(myByte);
-        short myShort = 12345; // has twice as much memory as a byte
-        System.out.println(myShort);
-        long myLong = 12323232L;
-        int myNewInt = (int) myLong;
-        System.out.println(myLong);
+    public static void displayHighScorePosition(String playerName, int playerPosition) {
+        System.out.println(playerName + " managed to get into position " + playerPosition + " on the high score table.");
+    }
 
-        byte newByte = 2;
-        short newShort = 1_000;
-        int newInt = 1_123;
-        long newLong = (50_000 + 10) * (newByte + newShort + newInt);
-        System.out.println("Answer to the challenge problem: " + newLong);
+    public static int calculateHighScorePosition(int playerScore) {
+        if (playerScore > 1000) return 1000 + playerScore;
+        else if (playerScore >= 500 && playerScore <= 1000) return 500 + playerScore;
+        else if (playerScore >= 100 && playerScore < 500) return 100 + playerScore;
+        else return 0;
+
+    }
+
+    public static void main(String[] args) {
+        String playerName = "Joseph";
+        displayHighScorePosition(playerName, calculateHighScorePosition(1500));
+        displayHighScorePosition(playerName, calculateHighScorePosition(900));
+        displayHighScorePosition(playerName, calculateHighScorePosition(400));
+        displayHighScorePosition(playerName, calculateHighScorePosition(50));
     }
 }
