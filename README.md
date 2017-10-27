@@ -13,3 +13,5 @@
 ### Useful Charts
 
 ![logarithm rules](images/logarithm_rules.png)
+
+![hash table](images/hash_table.png)
