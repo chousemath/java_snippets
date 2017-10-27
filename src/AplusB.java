@@ -7,9 +7,8 @@ public class AplusB {
         // create a new scanner object
         Scanner scanner = new Scanner(System.in);
         // prompt for user input
-        System.out.print("Enter numbers a and b: ");
         int a = scanner.nextInt();
         int b = scanner.nextInt();
-        System.out.println("Total is: " + (a + b));
+        System.out.println(a + b);
     }
 }
