@@ -1,15 +1,16 @@
 public class practice4 {
     public static void main(String[] args) {
-        System.out.println("Hello from practice 4");
-        char myChar = '\u00A9';
-        System.out.println("This is a char: " + myChar);
-        boolean myTrue = true;
+        char test = 'A';
 
-        if (true) {
-            System.out.println("Yay true!");
+        switch(test) {
+            case 'A':
+                System.out.println("You picked A");
+                break;
+            case 'B':
+                System.out.println("You picked B");
+                break;
+            default:
+                System.out.println("You picked neither A nor B");
         }
-
-        char registered = '\u00AE';
-        System.out.println("Registered symbol: " + registered);
     }
 }

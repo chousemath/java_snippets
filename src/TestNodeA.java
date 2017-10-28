@@ -42,6 +42,36 @@ public class TestNodeA {
         }
     }
 
+    public static NodeA delete(NodeA head, int position) {
+        // account for when input node is null
+        if (head == null) return null;
+        // if position is zero, simply disconnect the head node
+        if (position == 0) {
+            NodeA headHolder = head.next;
+            head.next = null;
+            return headHolder;
+        }
+        // if position != 0, iterate to the spot right before the position
+        int currentPosition = 0;
+        NodeA holderNode = head;
+        while (currentPosition != position - 1) {
+            currentPosition++;
+            holderNode = holderNode.next;
+        }
+        // if two positions down is null, just disconnect the next node
+        if (holderNode.next.next == null) holderNode.next = null;
+        else {
+            // if two positions down is NOT null, store the node two positions down
+            NodeA targetNode = holderNode.next.next;
+            // disconnect the next node from the node two positions down
+            holderNode.next.next = null;
+            // connect the current node to the node two positions down
+            holderNode.next = targetNode;
+        }
+
+        return head;
+    }
+
     public static NodeA insertNth(NodeA head, int data, int position) {
         // cover case when head is null
         if (head == null) {
