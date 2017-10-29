@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestNodeA {
     public static void main(String[] args) {
         NodeA a = new NodeA();
@@ -32,6 +35,7 @@ public class TestNodeA {
 
         NodeA newHead = insertNth(d, 6, 2);
         show(d);
+        reversePrint(d);
     }
 
     public static void show(NodeA head) {
@@ -39,6 +43,18 @@ public class TestNodeA {
         else {
             System.out.print(head.data + "->");
             show(head.next);
+        }
+    }
+
+    public static void reversePrint(NodeA head) {
+        if (head == null) return;
+        List<Integer> intVals = new ArrayList<>();
+        while (head != null) {
+            intVals.add(head.data);
+            head = head.next;
+        }
+        for (int i = intVals.size() - 1; i >= 0; i--) {
+            System.out.println(intVals.get(i));
         }
     }
 
