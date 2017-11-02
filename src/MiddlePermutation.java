@@ -23,6 +23,6 @@ class MiddlePermutation {
     }
 
     public static void main(String[] args) {
-        System.out.println(findMidPerm("dbca"));
+        System.out.println(findMidPerm("abcdxg"));
     }
 }
