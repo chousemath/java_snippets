@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class MeetingMerger {
     public static void main(String[] args) {
         Meeting[] meetings = new Meeting[]{
@@ -12,7 +15,19 @@ public class MeetingMerger {
         };
 
         Meeting[] orderedMeetings = orderMeetings(meetings, 0, 1, meetings.length);
+        System.out.println("After ordering");
         String resp = "";
+        for (Meeting m : meetings) {
+            if (m.getStartTime() == -1) continue;
+            resp += m.getStartTime() + "/" + m.getEndTime() + "->";
+        }
+        System.out.println(resp);
+
+        System.out.println("After merging");
+
+        orderedMeetings = mergeMeetings(orderedMeetings);
+        System.out.println("After ordering");
+        resp = "";
         for (Meeting m : meetings) {
             if (m.getStartTime() == -1) continue;
             resp += m.getStartTime() + "/" + m.getEndTime() + "->";
@@ -31,21 +46,57 @@ public class MeetingMerger {
                 Meeting temp = meetings[baseIndex];
                 meetings[baseIndex] = meetings[targetIndex];
                 meetings[targetIndex] = temp;
-            } else {
-                int baseEndTime = meetings[baseIndex].getEndTime();
-                int targEndTime = meetings[targetIndex].getEndTime();
-                if (baseEndTime != -1 && targEndTime != -1) {
-                    System.out.println("Comparing: " + meetings[baseIndex].getStartTime() + "/" + meetings[baseIndex].getEndTime() + " and " + meetings[targetIndex].getStartTime() + "/" + meetings[targetIndex].getEndTime());
-                    meetings[baseIndex].setEndTime(Math.max(baseEndTime, targEndTime));
-                    System.out.println("Resulting: " + meetings[baseIndex].getStartTime() + "/" + meetings[baseIndex].getEndTime());
-                    meetings[targetIndex] = new Meeting(-1, -1);
-                }
             }
-
-
             orderMeetings(meetings, baseIndex, targetIndex + 1, limit);
         }
 
         return meetings;
+    }
+
+    public static Meeting[] mergeMeetings(Meeting[] meetings) {
+        List<Meeting> meetingList = new ArrayList<>();
+        for (int i = 0; i < meetings.length - 1; i++) {
+            if (meetings[i].getStartTime() == -1) continue;
+
+            int startA = meetings[i].getStartTime();
+            int endA = meetings[i].getEndTime();
+            int startB = meetings[i].getStartTime();
+            int endB = meetings[i+1].getEndTime();
+
+            if (startA == startB) {
+                System.out.println("startA and startB equal, comparing end: " + endA + " with end:" + endB);
+                meetings[i].setEndTime(Math.max(endA, endB));
+                meetings[i+1].setStartTime(-1);
+                meetings[i+1].setEndTime(-1);
+                i++;
+            } else if (endA > endB) {
+                System.out.println("A merge should have happened");
+                meetings[i].setEndTime(endB);
+                meetings[i+1].setStartTime(-1);
+                meetings[i+1].setEndTime(-1);
+                i++;
+            }
+        }
+
+        System.out.println("After merging...");
+
+        String resp = "";
+        for (Meeting m : meetings) {
+            if (m.getStartTime() == -1) continue;
+            resp += m.getStartTime() + "/" + m.getEndTime() + "->";
+        }
+        System.out.println(resp);
+
+        for (Meeting m : meetings) {
+            if (m.getStartTime() != -1) {
+                meetingList.add(m);
+            }
+        }
+
+        Meeting[] meetingArr = new Meeting[meetingList.size()];
+
+        for (int i = 0; i < meetingArr.length; i++) meetingArr[i] = meetingList.get(i);
+
+        return meetingArr;
     }
 }
